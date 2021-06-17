@@ -17,6 +17,10 @@ phases:
     commands:
       # Use AWS SAM to package the application by using AWS CloudFormation
       - aws cloudformation package --template DemoBookstoreBooksServiceUpdateTemplate.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
+      # Build or pull the target container image specified in your environment variable
+      - docker pull $prisma_cloud_scan_image
+      # You may also copy the Shell script content for below URL
+      - curl https://gitlab.com/prismacloud-public/shift-left/extension/-/raw/master/aws-codepipeline/image_scan.sh | bash
 artifacts:
   type: zip
   files:
